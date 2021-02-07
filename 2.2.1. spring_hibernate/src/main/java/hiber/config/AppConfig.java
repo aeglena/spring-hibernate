@@ -16,11 +16,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScans(value = {
-        @ComponentScan("hiber.dao"),
-        @ComponentScan("hiber.model"),
-        @ComponentScan("hiber.service")
-})
+@ComponentScan(value = "hiber")
 public class AppConfig {
 
    @Autowired
@@ -44,6 +40,7 @@ public class AppConfig {
       Properties props=new Properties();
       props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
       props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+      props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 
       factoryBean.setHibernateProperties(props);
       factoryBean.setAnnotatedClasses(User.class);
